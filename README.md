@@ -8,7 +8,7 @@ This repository describes, how to setup Mediawiki step by step in Azure Kubernet
 - Terraform installed machine or Azure Devops pipeline
 
 #### Steps to configure the AKS & ACR:
-- Ensure to provide all the required Azure subscription SP details in terraform.tf (Pass the SP secret from the YAML pipeline varaible as ENV Variable)
+- Ensure to provide all the required Azure subscription SP details in terraform.tf (Pass the SP secret from the YAML pipeline varaible as ENV secret Variable)
 - Run the **azurepipeline_tf.yml**, it will deploy the ACR and AKS in Azure Cloud
 
 #### Download the mediawiki & mysql images from docker hub and push to ACR using below commands:
