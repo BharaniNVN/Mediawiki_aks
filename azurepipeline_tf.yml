@@ -1,0 +1,36 @@
+trigger:
+- master
+pr: none
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: TF_Install_Validate_PLAN_APPLY
+    jobs:
+      - job: TF_Install_Validate
+        steps:
+        - task: TerraformInstaller@0
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+        - task: TerraformCLI@0
+          inputs:
+            command: 'validate'
+            allowTelemetryCollection: true
+      - job: TF_PLAN_APPLY
+        steps:
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+        - task: TerraformCLI@0
+          inputs:
+            command: 'plan'
+            allowTelemetryCollection: true
+        - task: TerraformCLI@0
+          inputs:
+            command: 'apply'
+            allowTelemetryCollection: true

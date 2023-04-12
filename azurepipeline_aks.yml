@@ -1,0 +1,50 @@
+trigger:
+- master
+pr: none
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  stages:
+  - stage: AKS_Deployment
+    jobs:
+      - deployment: 
+        displayName: Mediawiki_deployment
+        environment:
+          name: mediawiki_aks
+          resourceType: Kubernetes
+        strategy:
+           runOnce:
+            deploy:
+              steps:
+              - task: KubernetesManifest@1
+                inputs:
+                  action: 'deploy'
+                  connectionType: 'azureResourceManager'
+                  azureSubscriptionConnection: ''
+                  azureResourceGroup: ''   
+                  kubernetesCluster: ''
+                  namespace: 'dev'
+                  strategy: 'canary'
+                  percentage: '20'
+                  manifests: '.\Mediawiki_Manifestfiles\mediawiki-deployment.yaml'
+      - deployment: 
+        displayName: DB_Deployment
+        environment:
+          name: mediawiki_aks
+          resourceType: Kubernetes
+        strategy:
+           runOnce:
+            deploy:
+              steps:
+              - task: KubernetesManifest@1
+                inputs:
+                  action: 'deploy'
+                  connectionType: 'azureResourceManager'
+                  azureSubscriptionConnection: ''
+                  azureResourceGroup: ''   
+                  kubernetesCluster: ''
+                  namespace: 'dev'
+                  strategy: 'canary'
+                  percentage: '20'
+                  manifests: '.\Mediawiki_Manifestfiles\mediawiki-db-deployment.yaml'
