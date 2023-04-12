@@ -1,4 +1,4 @@
-### Mediawiki_AKS
+#### Mediawiki_AKS
 
 This repository describes, how to setup Mediawiki step by step in Azure Kubernetes Service
 
@@ -20,7 +20,7 @@ This repository describes, how to setup Mediawiki step by step in Azure Kubernet
 - docker push myacr.azurecr.io/mysql:v1 
 
 #### Deploy the Secrets and ConfigMap to AKS using below commands Manually
-Ensure Secrets and Configmap objects are deployed in AKS before deploying the manifest files, because we are reffering the data in secrets and configmap in the deployment YAML Files
+- *Ensure Secrets and Configmap objects are deployed in AKS before deploying the manifest files, because we are reffering the data in secrets and configmap in the deployment YAML Files*
 - kubectl apply secrets.yaml
 - Kubectl apply configmap.yaml
 
