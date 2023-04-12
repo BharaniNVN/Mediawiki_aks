@@ -10,10 +10,10 @@ terraform {
 }
 
 provider "azurerm" {
-  client_id       = ""
-  client_secret   = var.sp
-  tenant_id       = ""
-  subscription_id = ""
+  client_id       = "CLINET_ID"
+  client_secret   = ""          #Passing value as ENV Varaible from Pipeline
+  tenant_id       = "TENANAT_ID"
+  subscription_id = "SUBSCRIPTION_ID"
 
   features {}
 }

@@ -4,6 +4,9 @@ pr: none
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- group: my-variable-group
+
 stages:
   - stage: TF_Install_Validate_PLAN_APPLY
     jobs:
@@ -16,6 +19,11 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
+            backendServiceArm: 'Subscription'
+            backendAzureRmResourceGroupName: 'ResourceGroup'
+            backendAzureRmStorageAccountName: 'StorageAccount'
+            backendAzureRmContainerName: 'Containername'
+            backendAzureRmKey: 'terrafrom.tfstate'
         - task: TerraformCLI@0
           inputs:
             command: 'validate'
@@ -26,6 +34,11 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
+            backendServiceArm: 'Subscription'
+            backendAzureRmResourceGroupName: 'ResourceGroup'
+            backendAzureRmStorageAccountName: 'StorageAccount'
+            backendAzureRmContainerName: 'Containername'
+            backendAzureRmKey: 'terrafrom.tfstate'
         - task: TerraformCLI@0
           inputs:
             command: 'plan'
