@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: mediawiki-service
+spec:
+  selector:
+      app:  mediawiki
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediawiki-pv-claim
+  labels:
+    app: mediawiki
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediawiki
+  labels:
+    app: mediawiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mediawiki
+  template:
+    metadata:
+      labels:
+        app: mediawiki
+    spec:
+      containers:
+        - name: mediawiki
+          image: mediawiki
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: WIKI_NAME
+              value: "My WIKI"
+            - name: DB_TYPE
+              value: "mysql"  
+            - name: WIKI_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: wikiadmin 
+            - name: WIKI_ADMIN_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: wikiadminpass   
+            - name: MYSQL_HOST
+              value: mysql-mediawiki
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: password
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: dbconfig
+                  key: database
+          volumeMounts:
+          - name: wordpress-persistent-storage
+            mountPath: /var/www/html
+       volumes:
+       - name: wordpress-persistent-storage
+         persistentVolumeClaim:
+          claimName: mediawiki-pv-claim
