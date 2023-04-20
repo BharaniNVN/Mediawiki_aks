@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql:latest
+        image: mysql
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
