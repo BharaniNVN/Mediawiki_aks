@@ -43,25 +43,25 @@ spec:
     spec:
       containers:
         - name: mediawiki
-          image: mediawiki:latest
+          image: 'mediawiki:latest'
           imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
             - name: WIKI_NAME
-              value: "My WIKI"
+              value: My WIKI
             - name: DB_TYPE
-              value: "mysql"  
+              value: mysql
             - name: WIKI_ADMIN
               valueFrom:
                 secretKeyRef:
                   name: dbsecret
-                  key: wikiadmin 
+                  key: wikiadmin
             - name: WIKI_ADMIN_PASS
               valueFrom:
                 secretKeyRef:
                   name: dbsecret
-                  key: wikiadminpass   
+                  key: wikiadminpass
             - name: MYSQL_HOST
               value: mysql-mediawiki
             - name: MYSQL_USER
@@ -80,9 +80,9 @@ spec:
                   name: dbconfig
                   key: database
           volumeMounts:
-          - name: mediawiki-pv-claim
-            mountPath: /var/www/html
-       volumes:
-       - name: mediawiki-pv-claim
-         persistentVolumeClaim:
-          claimName: mediawiki-pv-claim
+            - name: mediawiki-pv-claim
+              mountPath: /var/www/html
+          volumes:
+            - name: mediawiki-pv-claim
+              persistentVolumeClaim: null
+              claimName: mediawiki-pv-claim
