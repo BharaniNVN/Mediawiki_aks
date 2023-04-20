@@ -47,17 +47,17 @@ spec:
                   name: dbsecret
                   key: root
           - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
+            valueFrom:
+               secretKeyRef:
                   name: dbsecret
                   key: username
-            - name: MYSQL_PASSWORD
-              valueFrom:
+          - name: MYSQL_PASSWORD
+            valueFrom:
                 secretKeyRef:
                   name: dbsecret
                   key: password
-            - name: MYSQL_DB
-              valueFrom:
+          - name: MYSQL_DB
+            valueFrom:
                 configMapKeyRef:
                   name: dbconfig
                   key: database        
