@@ -80,9 +80,9 @@ spec:
                   name: dbconfig
                   key: database
           volumeMounts:
-          - name: wordpress-persistent-storage
+          - name: mediawiki-pv-claim
             mountPath: /var/www/html
        volumes:
-       - name: wordpress-persistent-storage
+       - name: mediawiki-pv-claim
          persistentVolumeClaim:
           claimName: mediawiki-pv-claim
