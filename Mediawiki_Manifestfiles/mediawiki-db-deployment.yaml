@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: myacr.azurecr.io/mediawiki:{$(build.buildid)}
+        image: mysql:latest
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:

@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
         - name: mediawiki
-          image: myacr.azurecr.io/mysql:{$(build.buildid)}
+          image: mediawiki:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
