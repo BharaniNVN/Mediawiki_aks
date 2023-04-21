@@ -39,6 +39,10 @@ spec:
       labels:
         app: mediawiki
     spec:
+      volumes:
+      - name: mediawiki-volume
+        persistentVolumeClaim:
+          claimName: mediawiki-pvc
       containers:
         - name: mediawiki
           image: 'mediawiki:latest'
@@ -80,7 +84,4 @@ spec:
                 configMapKeyRef:
                   name: dbconfig
                   key: database
-      volumes:
-      - name: mediawiki-volume
-        persistentVolumeClaim:
-        claimName: mediawiki-pvc
+      
