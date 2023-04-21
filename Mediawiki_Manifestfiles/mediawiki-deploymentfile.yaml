@@ -40,14 +40,14 @@ spec:
         app: mediawiki
     spec:
       volumes:
-      - name: mediawiki-volume
+      - name: mediawiki-pvc
         persistentVolumeClaim:
           claimName: mediawiki-pvc
       containers:
         - name: mediawiki
           image: 'mediawiki:latest'
           volumeMounts:
-            - name: Mediawiki-volumeMount
+            - name: mediawiki-pvc
               mountPath: "/var/www/html"
           imagePullPolicy: Always
           ports:
