@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: mysql-claim
 spec:
   accessModes:
   - ReadWriteOnce
@@ -39,14 +39,14 @@ spec:
         app: mysql
     spec:
       volumes:
-      - name: mysql-pv-claim
+      - name: mysql-claim
         persistentVolumeClaim:
-         claimName: mysql-pv-claim
+         claimName: mysql-claim
       containers:
       - name: mysql
         image: mysql
         volumeMounts:
-        - name: mysql-pv-claim
+        - name: mysql-claim
           mountPath: /var/lib/mysql
         env:
           - name: MYSQL_ROOT_PASSWORD
